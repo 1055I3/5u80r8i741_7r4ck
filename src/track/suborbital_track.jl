@@ -4,6 +4,9 @@ include(raw"..\anomaly\true_anomaly.jl")
 include(raw"..\coordinates\cartesian_coordinates.jl")
 include(raw"..\coordinates\spherical_coordinates.jl")
 
+# using anomaly
+# using coordinates
+
 using Base.Threads: @threads
 
 function suborbital_track(a::Float64, e::Float64, i::Float64, ω::Float64)
