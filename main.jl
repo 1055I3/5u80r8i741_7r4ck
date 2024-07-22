@@ -1,4 +1,4 @@
-include("./src/suborbital_track.jl")
+using "src/suborbital_track.jl"
 
 function main(ARGS::Vector{String})
     if length(ARGS) != 4
