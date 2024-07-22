@@ -20,7 +20,7 @@ function suborbital_track(a::Float64, e::Float64, i::Float64, ω::Float64, k::Fl
     Δt::Float64 = 0.001                                                             # time step [s]
     n::Float64 = sqrt(μ / a^3)                                                      # mean motion [rad / s]
     T::Float64 = 2*π / n                                                            # revolution period [s]
-    ΔΩ = Δt * 2*π / 86400                                                           # earth rotation speed [rad / s]
+    ΔΩ = Δt * 2*π / 86400                                                           # earth rotation step [rad]
 
     t::Vector{Float64} = [x for x in 0:Δt:k*T]                                      # time [s]
     Ω::Vector{Float64} = zeros(Float64, length(t))                                  # longitude of the ascending node [rad]
