@@ -1,5 +1,5 @@
 push!(LOAD_PATH, "./src/")
-using suborbital_track
+using src
 
 function main(ARGS::Vector{String})
     if length(ARGS) != 4
