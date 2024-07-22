@@ -1,5 +1,5 @@
-using "../anomaly/anomaly.jl"
-using "../coordinates/coordinates.jl"
+using anomaly
+using coordinates
 
 using Base.Threads: @threads
 

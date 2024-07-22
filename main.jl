@@ -1,4 +1,5 @@
-using "src/suborbital_track.jl"
+push!(LOAD_PATH, "./src/")
+using suborbital_track
 
 function main(ARGS::Vector{String})
     if length(ARGS) != 4

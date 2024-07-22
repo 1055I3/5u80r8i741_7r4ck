@@ -1,4 +1,4 @@
-module SuborbitalTrack
+module suborbital_track
 
 include("track/suborbital_track.jl")
 include("track/draw.jl")

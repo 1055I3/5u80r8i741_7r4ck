@@ -1,4 +1,4 @@
-module Anomaly
+module anomaly
 
 include("eccentric_anomaly.jl")
 include("mean_anomaly.jl")

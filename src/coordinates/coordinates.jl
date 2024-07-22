@@ -1,4 +1,4 @@
-module Coordinates
+module coordinates
 
 include("cartesian_coordinates.jl")
 include("spherical_coordinates.jl")
