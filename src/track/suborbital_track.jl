@@ -25,8 +25,9 @@ function suborbital_track(a::Float64, e::Float64, i::Float64, ω::Float64, k::Fl
     t::Vector{Float64} = [x for x in 0:Δt:k*T]                                      # time [s]
     Ω::Vector{Float64} = zeros(Float64, length(t))                                  # longitude of the ascending node [rad]
     λ::Vector{Float64} = zeros(Float64, length(t))                                  # longitude [deg]
-    Φ::Vector{Float64} = fill(deg2rad(90.0), length(t))                             # latitude [deg]
+    Φ::Vector{Float64} = zeros(Float64, length(t))                             # latitude [deg]
 
+    Ω[1] = deg2rad(90)
     for x in eachindex(Ω[1:end-1])
         @inbounds Ω[x+1] = Ω[x] - ΔΩ
     end
