@@ -55,8 +55,8 @@ end
 function spherical_coordinates(X, Y, Z)
     r::Float64 = sqrt(X^2 + Y^2 + Z^2)
     
-    Φ::Float64 = asind(Z / r)                                                        # latitude
-    λ::Float64 = atand(Y, X)                                                         # longitude
+    Φ::Float64 = asin(Z / r)                                                        # latitude
+    λ::Float64 = atan(Y, X)                                                         # longitude
 
     (λ, Φ)
 end
@@ -67,6 +67,9 @@ function ground_track(a::Float64, e::Float64, i::Float64, ω::Float64)
     G::Float64 = 6.673e-11                                                          # gravitational constant [m^3/(kg*s^2)]
     ME::Float64 = 5.9722e24                                                         # earth mass [kg]
     μ::Float64 = G*ME
+
+    i = deg2rad(i)                                                                  # inclination [rad]
+    ω = deg2rad(ω)                                                                  # argument of periapsis [deg]
 
     Δt::Float64 = 0.001                                                             # time step [s]
     n::Float64 = sqrt(μ / a^3)                                                      # mean motion [rad]
@@ -87,32 +90,23 @@ function ground_track(a::Float64, e::Float64, i::Float64, ω::Float64)
         E::Float64 = eccentric_anomaly(e, M)
         f::Float64 = true_anomaly(e, E)
         @inbounds (X, Y, Z) = cartesian_coordinates(a, e, i, ω, Ω[x], f)
-        @inbounds (λ[x], Φ[x]) = spherical_coordinates(X, Y, Z)
+        @inbounds (λ[x], Φ[x]) = rad2deg.(spherical_coordinates(X, Y, Z))
     end
 
     (λ, Φ)
 end
 
-#= plt.plot(track_longitude, track_latitude, '.')
-plt.xlabel('longitude [deg]')
-plt.ylabel('latitude [deg]')
-plt.xlim(-180, 180)
-plt.ylim(-90, 90)
-plt.title('a=' + str(a) + '; e=' + str(e) + '; i=' + str(i) + '; omega=' + str(math.degrees(omega)))
-plt.grid(True)
-#plt.savefig('molniya_sferne.png', dpi=900)
-plt.show() =#
-
 using Plots
 
 function draw(a::Float64, e::Float64, i::Float64, w::Float64, λ::Vector{Float64}, Φ::Vector{Float64})
-    scatter(λ, Φ, markersize=0.01, markercolor=:midnightblue)
-    title!("a=$a e=$e i=$(rad2deg(i)) ω=$(rad2deg(w))")
+    plot(size=(4096, 2160), legend=false)
+    scatter!(λ, Φ, markersize=0.03, markercolor=:midnightblue)
+    title!("a=$(round(a; digits=3)) e=$e i=$i ω=$w")
     xlabel!("longitude [deg]")
     ylabel!("latitude [deg]")
     xlims!(-180, 180)
     ylims!(-90, 90)
-    savefig("ground_track.png")
+    savefig("suborbital_track_$(round(a; digits=3))_$(e)_$(i)_$(w).png")
 end
 
 function main(ARGS::Vector{String})
@@ -122,8 +116,8 @@ function main(ARGS::Vector{String})
 
     a::Float64 = parse(Float64, ARGS[1])                                            # semi-major axis [m]
     e::Float64 = parse(Float64, ARGS[2])                                            # eccentricity [< 1]
-    i::Float64 = deg2rad(parse(Float64, ARGS[3]))                                   # inclination [rad]
-    ω::Float64 = deg2rad(parse(Float64, ARGS[4]))                                   # argument of periapsis [rad]
+    i::Float64 = parse(Float64, ARGS[3])                                            # inclination [deg]
+    ω::Float64 = parse(Float64, ARGS[4])                                            # argument of periapsis [deg]
 
     (λ, Φ) = ground_track(a, e, i, ω)
     
