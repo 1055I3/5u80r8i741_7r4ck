@@ -14,6 +14,8 @@ function eccentric_anomaly(e::Float64, M::Float64)
         Δ3
     end
 
+    ϵ = 1e-14
+
     E::Float64 = M
 
     for _ in 1:4
@@ -24,7 +26,7 @@ function eccentric_anomaly(e::Float64, M::Float64)
         ΔE = Δ(e, E, M)
         E -= ΔE
 
-        1e-14 < abs(ΔE) || break
+        ϵ < abs(ΔE) || break
     end
 
     E
@@ -53,8 +55,8 @@ end
 function spherical_coordinates(X, Y, Z)
     r::Float64 = sqrt(X^2 + Y^2 + Z^2)
     
-    Φ::Float64 = asin(Z / r)                                                        # latitude
-    λ::Float64 = atan(Y, X)                                                         # longitude
+    Φ::Float64 = asind(Z / r)                                                        # latitude
+    λ::Float64 = atand(Y, X)                                                         # longitude
 
     (λ, Φ)
 end
