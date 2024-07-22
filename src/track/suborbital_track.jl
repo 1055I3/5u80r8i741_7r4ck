@@ -1,9 +1,12 @@
-using anomaly
-using coordinates
+include(raw"..\anomaly\eccentric_anomaly.jl")
+include(raw"..\anomaly\mean_anomaly.jl")
+include(raw"..\anomaly\true_anomaly.jl")
+include(raw"..\coordinates\cartesian_coordinates.jl")
+include(raw"..\coordinates\spherical_coordinates.jl")
 
 using Base.Threads: @threads
 
-function ground_track(a::Float64, e::Float64, i::Float64, ω::Float64)
+function suborbital_track(a::Float64, e::Float64, i::Float64, ω::Float64)
     G::Float64 = 6.673e-11                                                          # gravitational constant [m^3/(kg*s^2)]
     ME::Float64 = 5.9722e24                                                         # earth mass [kg]
     μ::Float64 = G*ME

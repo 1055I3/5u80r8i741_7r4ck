@@ -1,4 +1,4 @@
-push!(LOAD_PATH, "./src/")
+push!(LOAD_PATH, raw"src")
 using src
 
 function main(ARGS::Vector{String})
@@ -11,7 +11,7 @@ function main(ARGS::Vector{String})
     i::Float64 = parse(Float64, ARGS[3])                                            # inclination [deg]
     ω::Float64 = parse(Float64, ARGS[4])                                            # argument of periapsis [deg]
 
-    (λ, Φ) = ground_track(a, e, i, ω)
+    (λ, Φ) = suborbital_track(a, e, i, ω)
     
     draw(a, e, i, ω, λ, Φ)
 end

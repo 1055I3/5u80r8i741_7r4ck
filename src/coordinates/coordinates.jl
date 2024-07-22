@@ -1,7 +1,7 @@
 module coordinates
 
-include("cartesian_coordinates.jl")
-include("spherical_coordinates.jl")
+include(raw"cartesian_coordinates.jl")
+include(raw"spherical_coordinates.jl")
 
 export cartesian_coordinates, spherical_coordinates
     
