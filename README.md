@@ -5,7 +5,7 @@
 
 # Suborbital Track
 
-Projection of the satellite orbit onto the surface of the Earth.
+Projection of a satellite orbit onto the surface of the Earth.
 
 ## Description
 
