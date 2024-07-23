@@ -3,7 +3,7 @@ using src
 
 function main(ARGS::Vector{String})
     if length(ARGS) != 6
-        error("\nthe call should contain 6 arguments:\njulia main.jl [semi-major axis] [eccentricity] [inclination] [longitude of the ascending node] [argument of periapsis] [№ revolutions]\n")
+        error("""\nthe call should contain 6 arguments:\njulia -t "auto" main.jl [semi-major axis] [eccentricity] [inclination] [longitude of the ascending node] [argument of periapsis] [№ revolutions]\n""")
     end
 
     a::Float64 = parse(Float64, ARGS[1])                                            # semi-major axis [m]
