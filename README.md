@@ -12,4 +12,4 @@ projection_of_the_satellite_orbit_onto_the_surface_of_the_earth
 нзо0 a=8000e3, e=0, i=30, omega=30
 нзо1 a=6796e3, e=0.000126, i=51.638, omega=-100
 
-julia -t "auto" main.jl 29991.5e3 0.6 63.4 -90 2  -->
+julia -t "auto" main.jl 29991.5e3 0.6 63.4 180 -90 2  -->
